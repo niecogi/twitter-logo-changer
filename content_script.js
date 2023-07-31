@@ -1,6 +1,5 @@
 function getElementByTagH1() {
   return new Promise((resolve) => {
-
     setTimeout(() => {
       const h1 = document.getElementsByTagName("h1");
       resolve(h1);
@@ -13,17 +12,7 @@ async function main() {
     // We wait until the variable has information
     // This "wait" is necessary, otherwise it will return undefined.
     const data = await getElementByTagH1();
-
-    const extensionId = chrome.runtime.id;
-    const linkElement =  document.querySelector('[rel="shortcut icon"]')
-
-    linkElement.href = `chrome-extension://${extensionId}/icon.png`
-
     const svgElement = await searchSVGElement(data[0]);
-
-    const title =  document.getElementsByTagName("title");
-
-    title[0].innerHTML = "Home / Twitter"
 
     // Check if the SVG element is found
     if (svgElement) {
@@ -38,6 +27,13 @@ async function main() {
 
       const svgParentElement = svgElement.parentElement;
       svgParentElement.innerHTML = customLogoX;
+
+
+      changeTheIconTab();
+
+      //change the title -> this needs to be developed further
+      const title = document.getElementsByTagName("title");
+      title[0].innerHTML = "Home / Twitter";
     }
   } catch (error) {
     console.error("Error al obtener la información:", error);
@@ -46,7 +42,6 @@ async function main() {
 
 //Recursive function to search the SVGElement
 async function searchSVGElement(elemento) {
-  console.log(elemento);
   if (elemento.tagName === "svg") {
     return elemento; // If it is an <svg>, we have found it, we return the element
   }
@@ -66,12 +61,20 @@ async function searchSVGElement(elemento) {
 
 function getElementH1() {
   return new Promise((resolve) => {
-  setTimeout(() => {
+    setTimeout(() => {
       const h1 = document.getElementsByTagName("h1");
       resolve(h1);
+    }, 2000);
+  });
+}
 
-  }, 2000);
-  })
+function changeTheIconTab() {
+  const extensionId = chrome.runtime.id;
+  const linkElement = document.querySelector('[rel="shortcut icon"]'); 
+  const linkElementApple = document.querySelector('[rel="apple-touch-icon"]');
+
+  linkElement.href = `chrome-extension://${extensionId}/icon.png`;
+  linkElementApple.href =  `chrome-extension://${extensionId}/icon.png`;
 }
 
 main();
