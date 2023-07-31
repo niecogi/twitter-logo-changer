@@ -1,0 +1,7 @@
+#placeholder > svg {
+  display: none !important;
+}
+
+#placeholder::before {
+    background-image: url(chrome-extension://nejhpmnchajngbjdepffbcmhflfolkic/icon.png);
+  }

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter Logo X Changer",
+  "version": "1.0",
+  "description": "A Chrome extension to change the Twitter logo X.",
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": ["content_script.js"],
+      "css": ["theme.css"]
+    }
+  ],
+  "icons": {
+    "48": "icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
